@@ -26,6 +26,7 @@
 #include "subscriberwidget.h"
 #include "contentwidget.h"
 #include "librarywidget.h"
+#include "database.h"
 
 
 class BorrowWidget: public QWidget
@@ -33,6 +34,9 @@ class BorrowWidget: public QWidget
     Q_OBJECT
 
 private:
+
+    Database db;
+
     QWidget *borrowWidget;
     QPushButton *addBtn, *removeBtn, *printBtn;
     QTreeWidget *borrowDetails;

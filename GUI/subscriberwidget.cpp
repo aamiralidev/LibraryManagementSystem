@@ -4,6 +4,7 @@
 SubscriberWidget::SubscriberWidget()
 {
 
+//    db.init();
     this->subscriberDetails = new QTreeWidget();
     this->subscriberDetails->setColumnCount(6);
 
@@ -221,6 +222,7 @@ void SubscriberWidget::addSubscriber()
     tempSubscriber->setPhone(this->addPhone->text().toULong());
     tempSubscriber->setType(type);
     this->subscriberData.push_back(tempSubscriber);
+    db.saveSubscriber(*tempSubscriber);
     this->addSubscriberWidget->hide();
     this->subscriberDetails->clear();
     this->loadSubscriberDetails(this->subscriberDetails);
@@ -230,6 +232,7 @@ void SubscriberWidget::editSubscriber()
 {
     bool etype;
     int index=(this->subscriberDetails->currentIndex().row())-1;
+    int id = this->subscriberData[index]->getId();
     this->subscriberData[index]->setId(this->editId->text().toInt());
     this->subscriberData[index]->setName(this->editName->text().toStdString());
     this->subscriberData[index]->setEmail(this->editEmail->text().toStdString());
@@ -240,6 +243,8 @@ void SubscriberWidget::editSubscriber()
         etype=false;
     this->subscriberData[index]->setType(etype);
     this->subscriberData[index]->setPhone(this->editPhone->text().toULong());
+
+    db.updateSubscriber(id, *(this->subscriberData[index]));
 
     this->editSubscriberWidget->hide();
     this->subscriberDetails->clear();
@@ -254,6 +259,7 @@ void SubscriberWidget::removeSubscriber()
         QMessageBox::information(this,"error","Please an entry from the list");
         return;
     }
+    db.removeSubscriber(this->subscriberData[index]->getId());
     this->subscriberData.erase(this->subscriberData.begin()+index);
     this->subscriberDetails->clear();
     this->loadSubscriberDetails(this->subscriberDetails);
@@ -261,6 +267,9 @@ void SubscriberWidget::removeSubscriber()
 
 void SubscriberWidget::loadSubscriberData()
 {
+    this->subscriberData = db.loadSubscribers();
+
+    /*
     Subscriber *tempSubscriber;
 
 
@@ -290,10 +299,12 @@ void SubscriberWidget::loadSubscriberData()
         this->subscriberData.push_back(tempSubscriber);
     }
     inData.close();
+    */
 }
 
 void SubscriberWidget::saveSubscriberData()
 {
+    /*
     string fileName = "subscriber.txt";
     ofstream out;
     out.open(fileName, ofstream::out | ofstream::trunc);
@@ -307,6 +318,7 @@ void SubscriberWidget::saveSubscriberData()
         out<<this->subscriberData[i]->getEmail()<<'\0'<<'\n';
     }
     out.close();
+    */
 }
 
 void SubscriberWidget::showSelectSubscriberWidget()

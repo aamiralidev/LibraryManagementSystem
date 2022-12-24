@@ -18,11 +18,15 @@
 #include <vector>
 
 #include "subscriber.h"
+#include "database.h"
 
 class SubscriberWidget: public QWidget
 {
     Q_OBJECT
 private:
+
+    Database db;
+
     QTreeWidget *subscriberDetails;
     QVBoxLayout *subscriberLayout;
     std::vector<Subscriber*> subscriberData;

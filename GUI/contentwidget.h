@@ -17,6 +17,7 @@
 #include <vector>
 
 #include "content.h"
+#include "database.h"
 
 class ContentWidget: public QWidget
 {
@@ -33,6 +34,9 @@ public:
     void saveContentData();
     void showSelectContentWidget();
 private:
+
+    Database db;
+
     QTreeWidget *contentDetails;
     QVBoxLayout *contentLayout;
     std::vector<Content*> contentData;

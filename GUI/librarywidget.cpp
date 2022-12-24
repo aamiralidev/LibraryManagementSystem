@@ -3,6 +3,8 @@
 
 LibraryWidget::LibraryWidget()
 {
+//    db.init();
+
     this->libraryDetails = new QTreeWidget();
     this->libraryDetails->setColumnCount(2);
     this->addBtn = new QPushButton("Add Library");
@@ -141,6 +143,9 @@ void LibraryWidget::addLibrary()
     tempLibrary->setLibraryId(this->addLibraryId->text().toInt());
     tempLibrary->setLibraryName(this->addLibraryName->text().toStdString());
     this->libraryData.push_back(tempLibrary);
+
+    db.saveLibrary(*tempLibrary);
+
     this->addLibraryWidget->hide();
     this->libraryDetails->clear();
     this->loadLibraryDetails();
@@ -149,8 +154,12 @@ void LibraryWidget::addLibrary()
 void LibraryWidget::editLibrary()
 {
     int index=(this->libraryDetails->currentIndex().row())-1;
+    int id = this->libraryData[index]->getLibraryId();
     this->libraryData[index]->setLibraryId(this->editLibraryId->text().toInt());
     this->libraryData[index]->setLibraryName(this->editLibraryName->text().toStdString());
+
+    db.updateLibrary(id, *(this->libraryData[index]));
+
     this->editLibraryWidget->hide();
     this->libraryDetails->clear();
     this->loadLibraryDetails();
@@ -164,6 +173,7 @@ void LibraryWidget::removeLibrary()
         QMessageBox::information(this,"error","Please an entry from the list");
         return;
     }
+    db.removeLibrary(this->libraryData[index]->getLibraryId());
     this->libraryData.erase(this->libraryData.begin()+index-1);
     this->libraryDetails->clear();
     this->loadLibraryDetails();
@@ -171,6 +181,8 @@ void LibraryWidget::removeLibrary()
 
 void LibraryWidget::loadLibraryData()
 {
+    this->libraryData = db.loadLibraries();
+    /*
     Library *tempLibrary;
     string fileName = "library.txt";
     ifstream inData;
@@ -191,10 +203,12 @@ void LibraryWidget::loadLibraryData()
         this->libraryData.push_back(tempLibrary);
     }
     inData.close();
+    */
 }
 
 void LibraryWidget::saveLibraryData()
 {
+    /*
     string fileName = "library.txt";
     ofstream out;
     out.open(fileName, ofstream::out | ofstream::trunc);
@@ -204,4 +218,5 @@ void LibraryWidget::saveLibraryData()
         out<<this->libraryData[i]->getLibraryName()<<'\n';
     }
     out.close();
+    */
 }

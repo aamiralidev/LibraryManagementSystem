@@ -5,6 +5,8 @@ using namespace  std;
 
 BorrowWidget::BorrowWidget()
 {
+//    db.init();
+
     this->borrowWidget = new QWidget();
     this->tabWidget = new QTabWidget();
     this->tabLayout = new QVBoxLayout();
@@ -94,6 +96,7 @@ void BorrowWidget::loadBorrowDetails(QTreeWidget* treeWidget)
 
 void BorrowWidget::saveBorrowData()
 {
+    /*
     string fileName = "borrow.txt";
     ofstream out;
     out.open(fileName, ofstream::out | ofstream::trunc);
@@ -109,10 +112,13 @@ void BorrowWidget::saveBorrowData()
         out<<this->borrowData[i]->getReturnDate().year()<<'\n';
     }
     out.close();
+    */
 }
 
 void BorrowWidget::loadBorrowData()
 {
+    this->borrowData = db.loadTransactions();
+    /*
     Transaction *tempBorrow;
     string fileName = "borrow.txt";
     ifstream inData;
@@ -132,6 +138,7 @@ void BorrowWidget::loadBorrowData()
         this->borrowData.push_back(tempBorrow);
     }
     inData.close();
+    */
 }
 
 void BorrowWidget::addBorrowClicked()
@@ -160,6 +167,9 @@ void BorrowWidget::selectContentClicked(int contentId)
         *rdate = idate->addDays(21);
     tempTransaction = new Transaction(subscriberId, contentId, *idate, *rdate);
     this->borrowData.push_back(tempTransaction);
+
+    db.saveTransaction(*tempTransaction);
+
     this->borrowDetails->clear();
     this->loadBorrowDetails(this->borrowDetails);
 }
@@ -190,9 +200,10 @@ void BorrowWidget::printBorrow()
 }
 
 void BorrowWidget::saveData()
-{
+{/*
     this->saveBorrowData();
     this->subscriberWidget->saveSubscriberData();
     this->libraryWidget->saveLibraryData();
     this->contentWidget->saveContentData();
+    */
 }

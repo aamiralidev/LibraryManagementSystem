@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include<QPixmap>
+#include<QPalette>
 
 using namespace std;
 
@@ -11,6 +13,15 @@ MainWindow::MainWindow(QWidget *parent)
     this->setWindowTitle("Library Management System");
     this->setWindowIcon(QIcon(":/rsc/icons/logo.jpg"));
     this->resize(1000,600);
+
+    Database db;
+    db.init();
+
+    QPixmap bkgnd(":/rsc/icons/bg.jpg");
+    bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
+    QPalette palette;
+    palette.setBrush(QPalette::Background, bkgnd);
+    this->setPalette(palette);
 
     this->stackedWidget = new QStackedWidget();
     this->loginWidget = new PasswordWidget();

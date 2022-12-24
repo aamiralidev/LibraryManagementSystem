@@ -1,4 +1,6 @@
-QT       += core gui printsupport
+QT       += core gui printsupport sql
+
+QTPLUGIN += qsqlite
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -23,6 +25,7 @@ SOURCES += \
     GUI/passwordWidget.cpp \
     GUI/subscriberwidget.cpp \
     content.cpp \
+    database.cpp \
     library.cpp \
     main.cpp \
     subscriber.cpp \
@@ -38,6 +41,7 @@ HEADERS += \
     GUI/passwordWidget.h \
     GUI/subscriberwidget.h \
     content.h \
+    database.h \
     library.h \
     subscriber.h \
     transaction.h
@@ -52,5 +56,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resources.qrc
+
+DISTFILES += \
+    LibMS.db
 
 

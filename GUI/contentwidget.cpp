@@ -6,6 +6,8 @@ using namespace std;
 
 ContentWidget::ContentWidget()
 {
+//    db.init();
+
     this->contentDetails = new QTreeWidget();
     this->contentDetails->setColumnCount(9);
 
@@ -299,6 +301,9 @@ void ContentWidget::addContent()
     tempContent->setStatus(tstatus);
     tempContent->setCategory(tcategory);
     this->contentData.push_back(tempContent);
+
+    db.saveContent(*tempContent);
+
     this->addContentWidget->hide();
     this->contentDetails->clear();
     this->loadContentDetails(this->contentDetails);
@@ -309,6 +314,7 @@ void ContentWidget::editContent()
     bool tstatus;
     int tcategory;
     int index=(this->contentDetails->currentIndex().row())-1;
+    int id = this->contentData[index]->getItemId();
     this->contentData[index]->setItemId(this->editItemId->text().toInt());
     this->contentData[index]->setLibraryId(this->editLibraryId->text().toInt());
     this->contentData[index]->setProductionYear(this->editProductionYear->text().toInt());
@@ -332,6 +338,8 @@ void ContentWidget::editContent()
     this->contentData[index]->setStatus(tstatus);
     this->contentData[index]->setCategory(tcategory);
 
+    db.updateContent(id, *(this->contentData[index]));
+
     this->editContentWidget->hide();
     this->contentDetails->clear();
     this->loadContentDetails(contentDetails);
@@ -345,6 +353,7 @@ void ContentWidget::removeContent()
         QMessageBox::information(this,"error","Please an entry from the list");
         return;
     }
+    db.removeContent(this->contentData[index]->getItemId());
     this->contentData.erase(this->contentData.begin()+index-1);
     this->contentDetails->clear();
     this->loadContentDetails(this->contentDetails);
@@ -352,6 +361,8 @@ void ContentWidget::removeContent()
 
 void ContentWidget::loadContentData()
 {
+    this->contentData = db.loadContents();
+    /*
     Content *tempContent;
     string fileName = "items.txt";
     ifstream inData;
@@ -379,10 +390,12 @@ void ContentWidget::loadContentData()
         this->contentData.push_back(tempContent);
     }
     inData.close();
+    */
 }
 
 void ContentWidget::saveContentData()
 {
+    /*
     string fileName = "items.txt";
     ofstream out;
     out.open(fileName, ofstream::out | ofstream::trunc);
@@ -399,6 +412,7 @@ void ContentWidget::saveContentData()
         out<<this->contentData[i]->getPublisher()<<'\0'<<'\n';
     }
     out.close();
+    */
 }
 void ContentWidget::showSelectContentWidget()
 {

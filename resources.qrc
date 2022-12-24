@@ -5,5 +5,7 @@
         <file>icons/sucess.png</file>
         <file>icons/golden.png</file>
         <file>icons/silver.png</file>
+        <file>icons/bg.jpg</file>
+        <file>icons/bg1.jpg</file>
     </qresource>
 </RCC>

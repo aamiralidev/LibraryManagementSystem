@@ -17,6 +17,7 @@
 #include <vector>
 
 #include "library.h"
+#include "database.h"
 
 class LibraryWidget: public QWidget
 {
@@ -33,6 +34,9 @@ public:
     void saveLibraryData();
 
 private:
+
+    Database db;
+
     QTreeWidget *libraryDetails;
     QTreeWidgetItem *itm;
     QPushButton *addBtn, *editBtn, *removeBtn;
