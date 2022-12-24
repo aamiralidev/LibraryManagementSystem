@@ -1,0 +1,26 @@
+#ifndef TRANSCTION_H
+#define TRANSCTION_H
+
+struct Date
+{
+	int Day = 0, Month = 0, Year = 0;
+};
+
+class Transction
+{
+    Date issueDate, returnDate;
+    unsigned int subscriberId, contentId;
+public:
+    Transction();
+    Transction(unsigned int subscriberId, unsigned int contentId, Date issueDate, Date returnDate);
+    
+    //======setters=======
+    Transction& setSubscriberId(unsigned int subscriberId);
+    Transction& setContentId(unsigned in contentId);
+    
+    
+    
+    //======getters========
+};
+
+#endif // TRANSCTION_H

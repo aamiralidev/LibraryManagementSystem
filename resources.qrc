@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/rsc">
+        <file>icons/error.png</file>
+        <file>icons/logo.jpg</file>
+        <file>icons/sucess.png</file>
+        <file>icons/golden.png</file>
+        <file>icons/silver.png</file>
+    </qresource>
+</RCC>
