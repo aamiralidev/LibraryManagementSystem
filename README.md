@@ -22,7 +22,7 @@ To get started with the Library Management System, follow these steps:
 1.  Clone this repository:
 
 ```bash
-git clone https://github.com/your-username/LibraryManagementSystem.git
+git clone https://github.com/aamirali-dev/LibraryManagementSystem.git
 ``` 
 
 2.  Open the project in your favorite C++ IDE or text editor.
